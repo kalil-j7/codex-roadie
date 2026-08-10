@@ -127,8 +127,11 @@ pub async fn test_connection(state: State<'_, AppState>) -> Result<ProbeResult, 
             let mut remote = config;
             remote.host = WorkerHost::RemoteSsh;
             remote.engine = WorkerEngine::Codex;
-            remote.workspace = settings.workspace.trim().to_owned();
-            remote.codex_executable = settings.codex_executable.trim().to_owned();
+            settings.workspace.trim().clone_into(&mut remote.workspace);
+            settings
+                .codex_executable
+                .trim()
+                .clone_into(&mut remote.codex_executable);
             remote.sandbox = settings.sandbox;
             match build_probe_script(&remote) {
                 Ok(script) => {

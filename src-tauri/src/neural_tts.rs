@@ -1,5 +1,3 @@
-#![cfg(target_os = "macos")]
-
 use std::io::{BufRead, BufReader, Write};
 use std::path::PathBuf;
 use std::process::{Child, ChildStdin, Command, Stdio};
