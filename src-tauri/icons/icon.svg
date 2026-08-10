@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#182321"/>
+      <stop offset="1" stop-color="#070b0b"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="36%" cy="28%" r="72%">
+      <stop offset="0" stop-color="#c6ffe4"/>
+      <stop offset="0.42" stop-color="#66f2b3"/>
+      <stop offset="1" stop-color="#1fc989"/>
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="30" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="32" y="32" width="960" height="960" rx="224" fill="url(#bg)"/>
+  <circle cx="512" cy="512" r="294" fill="none" stroke="#66f2b3" stroke-opacity=".11" stroke-width="18"/>
+  <circle cx="512" cy="512" r="226" fill="none" stroke="#66f2b3" stroke-opacity=".2" stroke-width="18"/>
+  <circle cx="512" cy="512" r="150" fill="url(#orb)" filter="url(#glow)"/>
+  <path d="M382 505V454c0-72 58-130 130-130s130 58 130 130v51" fill="none" stroke="#08120e" stroke-width="42" stroke-linecap="round"/>
+  <path d="M356 500h70v142h-38c-37 0-67-30-67-67v-40c0-19 16-35 35-35Zm312 0h-70v142h38c37 0 67-30 67-67v-40c0-19-16-35-35-35Z" fill="#08120e"/>
+  <path d="M637 642c0 54-44 86-114 86h-29" fill="none" stroke="#08120e" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="476" cy="728" r="24" fill="#08120e"/>
+</svg>

@@ -1,0 +1,67 @@
+name: Bug report
+description: Report a reproducible Codex Roadie problem without private data
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not attach recordings, credentials, private source, session identifiers, Application Support files, or unsanitized diagnostics.
+
+  - type: input
+    id: version
+    attributes:
+      label: Roadie version or commit
+      placeholder: 0.1.0 or commit SHA
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: macOS and Mac model
+      placeholder: macOS version and Apple Silicon generation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: route
+    attributes:
+      label: Worker route
+      options:
+        - Mac Codex
+        - SSH Codex
+        - Mac Claude Code
+        - Voice pipeline only
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Use a sample project and remove personal paths or content.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I removed credentials, recordings, private code, personal paths, session IDs, and unsanitized diagnostics.
+          required: true

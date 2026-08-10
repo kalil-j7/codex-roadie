@@ -1,0 +1,44 @@
+[package]
+name = "codex-roadie"
+version = "0.1.0"
+description = "Unofficial hands-free macOS voice companion for local and SSH coding agents"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+name = "codex_roadie_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.6.3", features = [] }
+
+[dependencies]
+roadie-core = { path = "../crates/roadie-core" }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tauri = { version = "2.11.5", features = [] }
+tokio = { version = "1.52.3", features = [
+  "io-util",
+  "macros",
+  "process",
+  "rt-multi-thread",
+  "sync",
+  "time",
+] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+avspeechsynthesizer = { package = "avspeechsynthesizer-rs", version = "0.3.7" }
+cpal = "0.18.1"
+silero-vad-crs = { version = "0.4.0", features = ["auto"] }
+whisper-rs = { version = "0.16.0", features = ["metal"] }
+
+[lints.rust]
+unsafe_code = "deny"
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }

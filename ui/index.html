@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Codex Roadie</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <path d="M7 16a9 9 0 0 1 18 0" />
+              <path d="M4 16h5v8H6a2 2 0 0 1-2-2v-6Zm24 0h-5v8h3a2 2 0 0 0 2-2v-6Z" />
+              <path d="M23 24c0 3-2.5 4-6 4" />
+            </svg>
+          </div>
+          <div>
+            <div class="eyebrow">VOICE LINK</div>
+            <h1>Codex Roadie</h1>
+          </div>
+        </div>
+        <div class="top-actions">
+          <label class="model-picker" for="worker-engine-select">
+            <span>WORKER</span>
+            <select id="worker-engine-select" aria-label="Mac worker engine">
+              <option value="codex">Codex</option>
+              <option value="claude">Claude Code</option>
+            </select>
+          </label>
+          <label class="model-picker" for="model-select">
+            <span>MODEL</span>
+            <select id="model-select" aria-label="Codex model">
+              <option value="">Codex default</option>
+              <option value="gpt-5.6-sol">5.6 Sol</option>
+              <option value="gpt-5.6-terra">5.6 Terra</option>
+              <option value="gpt-5.6-luna">5.6 Luna</option>
+              <option value="gpt-5.3-codex-spark">5.3 Codex Spark</option>
+              <option value="gpt-5.5">5.5</option>
+              <option value="gpt-5.4">5.4</option>
+              <option value="gpt-5.4-mini">5.4 Mini</option>
+            </select>
+          </label>
+          <label class="model-picker effort-picker" for="effort-select">
+            <span>EFFORT</span>
+            <select id="effort-select" aria-label="Codex reasoning effort">
+              <option value="">Model default</option>
+              <option value="minimal">Minimal</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="xhigh">Extra high</option>
+            </select>
+          </label>
+          <button id="fast-mode" class="fast-toggle" type="button" aria-pressed="false" title="Use Codex Fast service tier">
+            <span aria-hidden="true">⚡</span> Fast
+          </button>
+          <button id="worker-host" class="host-toggle active" type="button" aria-pressed="true" title="Toggle between the Mac-local worker and an optional key-only SSH worker">
+            <span aria-hidden="true">⌘</span> <span id="worker-host-label">Mac</span>
+          </button>
+          <button id="relay-mode" class="relay-toggle" type="button" aria-pressed="false" title="Use a separate local Codex model to narrate worker updates">
+            <span aria-hidden="true">↔</span> Relay
+          </button>
+          <div id="usage-pill" class="usage-pill" title="Codex token usage">
+            <span class="usage-label">USAGE</span>
+            <strong id="usage-last">Last —</strong>
+            <span id="usage-session">Session —</span>
+          </div>
+          <div id="session-pill" class="session-pill" title="Codex session">
+            <span class="session-dot"></span>
+            <span id="session-label">Fresh session</span>
+          </div>
+          <button id="settings-open" class="icon-button" type="button" aria-label="Open settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
+              <path d="M19.4 15a1.8 1.8 0 0 0 .36 1.98l.06.06-2.78 2.78-.06-.06A1.8 1.8 0 0 0 15 19.4a1.8 1.8 0 0 0-1.1 1.65V21h-3.8v-.09A1.8 1.8 0 0 0 9 19.4a1.8 1.8 0 0 0-1.98.36l-.06.06-2.78-2.78.06-.06A1.8 1.8 0 0 0 4.6 15a1.8 1.8 0 0 0-1.65-1.1H3v-3.8h.09A1.8 1.8 0 0 0 4.6 9a1.8 1.8 0 0 0-.36-1.98l-.06-.06 2.78-2.78.06.06A1.8 1.8 0 0 0 9 4.6a1.8 1.8 0 0 0 1.1-1.65V3h3.8v.09A1.8 1.8 0 0 0 15 4.6a1.8 1.8 0 0 0 1.98-.36l.06-.06 2.78 2.78-.06.06A1.8 1.8 0 0 0 19.4 9a1.8 1.8 0 0 0 1.65 1.1H21v3.8h-.09A1.8 1.8 0 0 0 19.4 15Z" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <section class="voice-card panel">
+          <div class="voice-stage">
+            <div id="voice-orb" class="voice-orb">
+              <span class="orb-ring ring-one"></span>
+              <span class="orb-ring ring-two"></span>
+              <span class="orb-core">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="9" y="3" width="6" height="11" rx="3" />
+                  <path d="M6.5 11.5a5.5 5.5 0 0 0 11 0M12 17v4M8.5 21h7" />
+                </svg>
+              </span>
+            </div>
+            <div class="status-copy">
+              <span id="state-kicker" class="state-kicker">INITIALIZING</span>
+              <h2 id="status-text">Starting voice engine</h2>
+              <p id="live-transcript" class="live-transcript">Say “Hey Codex” or “Hey Claude” followed by a task.</p>
+            </div>
+
+            <div class="pipeline-monitor" aria-live="polite">
+              <div class="signal-row">
+                <span>LIVE INPUT</span>
+                <div class="signal-track" aria-hidden="true"><i id="audio-level"></i></div>
+              </div>
+              <div id="pipeline-steps" class="pipeline-steps" aria-label="Voice request progress">
+                <div class="pipeline-step" data-pipeline-step="capture"><i></i><span>Capture</span></div>
+                <div class="pipeline-step" data-pipeline-step="whisper"><i></i><span>Whisper</span></div>
+                <div class="pipeline-step" data-pipeline-step="transfer"><i></i><span id="worker-host-step">Mac</span></div>
+                <div class="pipeline-step" data-pipeline-step="worker"><i></i><span id="worker-engine-step">XHigh</span></div>
+                <div class="pipeline-step" data-pipeline-step="reporter"><i></i><span>Report</span></div>
+                <div class="pipeline-step" data-pipeline-step="voice"><i></i><span>Voice</span></div>
+              </div>
+              <p id="pipeline-detail">Loading local Whisper model…</p>
+            </div>
+          </div>
+
+          <div class="voice-controls">
+            <button id="listen-toggle" class="primary-control" type="button">
+              <span class="control-indicator"></span>
+              <span id="listen-label">Start listening</span>
+            </button>
+            <button id="stop-speaking" class="secondary-control" type="button">Stop voice</button>
+            <button id="cancel-turn" class="secondary-control danger" type="button">Cancel task</button>
+          </div>
+
+          <div class="voice-hints" aria-label="Voice command examples">
+            <span>“Hey Codex, run the tests”</span>
+            <span>“Hey Claude, inspect the app”</span>
+            <span>“Hey Claude” … “run QA”</span>
+            <span>“Hey Codex, cancel”</span>
+          </div>
+        </section>
+
+        <section class="chat-card panel">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">LIVE THREAD</span>
+              <h2>Conversation</h2>
+            </div>
+            <div class="thread-actions">
+              <button id="repeat-last" class="text-button" type="button">Repeat last</button>
+              <button id="new-session" class="text-button" type="button">New session</button>
+            </div>
+          </div>
+
+          <form id="workspace-form" class="workspace-bar">
+            <label for="workspace-preset">
+              <span id="workspace-host-label">MAC WORKDIR</span>
+              <input id="workspace-preset" list="workspace-presets" autocomplete="off" spellcheck="false" aria-label="Task working directory" />
+            </label>
+            <datalist id="workspace-presets"></datalist>
+            <button id="workspace-save" class="text-button" type="submit">Set workdir</button>
+          </form>
+
+          <div id="chat-log" class="chat-log" aria-live="polite">
+            <div class="empty-chat">
+              <span>No turns yet</span>
+              <p>Your spoken requests and worker responses will appear here.</p>
+            </div>
+          </div>
+
+          <form id="prompt-form" class="prompt-form">
+            <input id="prompt-input" type="text" autocomplete="off" placeholder="Type a prompt while parked…" />
+            <button type="submit">Send</button>
+          </form>
+        </section>
+      </section>
+
+      <details class="diagnostics">
+        <summary>Diagnostics</summary>
+        <pre id="diagnostic-log">Waiting for events…</pre>
+      </details>
+    </main>
+
+    <div id="settings-backdrop" class="settings-backdrop" hidden>
+      <aside class="settings-panel" aria-labelledby="settings-title">
+        <div class="settings-header">
+          <div>
+            <span class="eyebrow">ONE-TIME SETUP</span>
+            <h2 id="settings-title">Road link</h2>
+          </div>
+          <button id="settings-close" class="icon-button" type="button" aria-label="Close settings">×</button>
+        </div>
+
+        <form id="settings-form">
+          <div class="field-group">
+            <label for="local-workspace">Mac worker workspace</label>
+            <input id="local-workspace" name="localWorkspace" list="workspace-presets" required />
+            <small>The Mac worker starts here. Device tools are optional and Full Mac access must be selected explicitly when needed.</small>
+          </div>
+
+          <div class="field-group">
+            <label for="ssh-target">SSH target</label>
+            <input id="ssh-target" name="sshTarget" placeholder="developer@build-host or an SSH alias" />
+            <small>Optional key-only SSH route for a remote build machine. Roadie never opens a password prompt.</small>
+          </div>
+
+          <div class="field-group">
+            <label for="workspace">Remote workspace</label>
+            <input id="workspace" name="workspace" list="workspace-presets" />
+          </div>
+
+          <div class="field-group">
+            <label for="codex-executable">Remote Codex executable</label>
+            <input id="codex-executable" name="codexExecutable" />
+            <small>Use <code>command -v codex</code> on the remote host if a login shell cannot find it.</small>
+          </div>
+
+          <div class="split-fields">
+            <div class="field-group">
+              <label for="local-codex-executable">Mac Codex executable</label>
+              <input id="local-codex-executable" name="localCodexExecutable" required />
+              <small>Runs the Codex worker and the optional local reporter; usually <code>/opt/homebrew/bin/codex</code>.</small>
+            </div>
+            <div class="field-group">
+              <label for="local-claude-executable">Mac Claude Code executable</label>
+              <input id="local-claude-executable" name="localClaudeExecutable" />
+              <small>Optional. Claude Code currently requires explicitly selecting Full Mac access.</small>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="reporter-model">Local voice model</label>
+            <select id="reporter-model" name="reporterModel">
+              <option value="gpt-5.3-codex-spark">5.3 Codex Spark</option>
+              <option value="gpt-5.6-luna">5.6 Luna</option>
+            </select>
+            <small>The other local Codex model is used automatically as fallback.</small>
+          </div>
+
+          <div class="split-fields">
+            <div class="field-group">
+              <label for="sandbox">Agent access</label>
+              <select id="sandbox" name="sandbox">
+                <option value="workspace-write">Workspace write</option>
+                <option value="read-only">Read only</option>
+                <option value="danger-full-access">Full Mac access</option>
+              </select>
+              <small>Workspace write is the safe default. Full access bypasses filesystem restrictions and requires confirmation.</small>
+            </div>
+            <div class="field-group">
+              <label for="locale">Voice locale</label>
+              <input id="locale" name="locale" placeholder="en-US" required />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="wake-phrase">Wake phrase</label>
+            <input id="wake-phrase" name="wakePhrase" required />
+          </div>
+
+          <div class="split-fields">
+            <div class="field-group">
+              <label for="speech-rate">Playback speed <output id="speech-rate-value">0.52</output></label>
+              <input id="speech-rate" name="speechRate" type="range" min="0.25" max="0.75" step="0.01" />
+              <small>Kokoro 82M • local Apple Silicon MLX • Apple voice fallback</small>
+            </div>
+            <div class="field-group">
+              <label for="silence-ms">Send after silence</label>
+              <select id="silence-ms" name="silenceMs">
+                <option value="600">0.6 seconds · fastest</option>
+                <option value="800">0.8 seconds</option>
+                <option value="1100">1.1 seconds</option>
+                <option value="1500">1.5 seconds</option>
+                <option value="2000">2.0 seconds</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="toggle-row">
+            <input id="voice-isolation" name="voiceIsolation" type="checkbox" />
+            <span>
+              <strong>macOS Voice Isolation</strong>
+              <small>Uses a lighter, faster detector because macOS is already suppressing road and cabin noise.</small>
+            </span>
+          </label>
+
+          <label class="toggle-row">
+            <input id="auto-listen" name="autoListen" type="checkbox" />
+            <span>
+              <strong>Listen automatically</strong>
+              <small>Arm the wake phrase whenever Roadie launches.</small>
+            </span>
+          </label>
+
+          <div id="settings-result" class="settings-result" aria-live="polite"></div>
+
+          <div class="settings-actions">
+            <button id="test-connection" class="secondary-control" type="button">Save & test</button>
+            <button class="primary-control" type="submit">Save settings</button>
+          </div>
+        </form>
+      </aside>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

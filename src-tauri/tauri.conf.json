@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Codex Roadie",
+  "version": "0.1.0",
+  "identifier": "dev.codexroadie.desktop",
+  "build": {
+    "frontendDist": "../ui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Codex Roadie",
+        "width": 1120,
+        "height": 760,
+        "minWidth": 820,
+        "minHeight": 620,
+        "center": true,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true,
+        "transparent": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost; img-src 'self' asset: http://asset.localhost; style-src 'self' 'unsafe-inline'; script-src 'self'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["app"],
+    "externalBin": ["../tts-helper/bin/roadie-tts"],
+    "category": "DeveloperTool",
+    "shortDescription": "Hands-free Codex control for the road",
+    "longDescription": "An unofficial native voice companion for Mac-local or key-only SSH coding-agent sessions with local transcription and speech.",
+    "macOS": {
+      "minimumSystemVersion": "14.0",
+      "entitlements": "./Entitlements.plist"
+    }
+  }
+}
