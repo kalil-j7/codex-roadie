@@ -15,6 +15,6 @@
     "build:mac": "bash ./scripts/build-soprano-helper.sh && tauri build --bundles app && bash ./scripts/bundle-soprano-shaders.sh"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "2.11.4"
+    "@tauri-apps/cli": "2.12.3"
   }
 }
